@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>About Me</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />   
+
+    <script>
+        window.onload = function() {
+            var today = new Date();
+            var year = new Date().getFullYear();
+            var month = new Date().getMonth();
+            var day = new Date().getDate();
+            var myYears = year - 1985;
+
+            if (month < 1) {
+                myYears -= 1;
+            }
+            else if (month == 1) {
+                if (day < 7) {
+                    myYears -= 1;
+                }
+            }
+            document.getElementById("today").innerHTML = today.toDateString();
+            document.getElementById("myAge").innerHTML = myYears;
+        }
+    </script>
+
+</head>
+
+<body>
+    <div style="float:right;">
+        <p id="today" style="text-align:right; font-size:small;"></p>
+        <a href="../index.html">|Back to ePortfolio|</a>
+    </div>
+
+    <h1>
+        About Me
+    </h1>
+
+    <br />
+
+    <div>
+        <table>
+            <tr>
+                <td><img src="profilePic.jpg" class="thumbnail" alt="Profile Picture"/></td>
+                <td><h2>Name: Christopher Charles Small</h2><h2>Email: <a href="mailto:n00931863@ospreys.unf.edu" target="_blank">N00931863@ospreys.unf.edu</a></h2></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <br />
+    <hr />
+    <br />
+
+    <h3>Personal Details</h3>
+
+    <div class="textContent">
+        <h4><i>Past</i></h4>
+        <blockquote>
+            About a year or so after I graduated High School, I enlisted in the US Navy as an Operations Specialist and was stationed aboard the USS Cowpens (CG-63) in Yokosuka, Japan.
+            Shortly after I completed my four year enlistment, I began my pursuit of a career in Information Technology/Systems at ITT Technical Institute, earned a two year degree, then moved on
+            to Florida State College at Jacksonville, and finally transfered to The University of North Florida.
+        </blockquote>
+
+        <br />
+        <hr style="width:75%" />
+
+        <h4><i>Present</i></h4>
+        <blockquote>
+            <p>
+                I am <span id="myAge"></span> years old, I live and work in Jacksonville, Florida, and am currently an undergraduate student in my senior year at The University of North Florida.
+                I work for <font color="blue">SMG</font> as an IT technician servicing Jacksonville's major venues including Everbank Field, The Jacksonville Veteran's Memorial Arena, and Prime Osborn Convention Center.
+                I enjoy both web and software development in my spare time, so I think I can consider that to be the closest thing I can call a hobby, as I spend a lot of my free time working on
+                personal programming projects and reading about new development technologies.
+            </p>
+        </blockquote>
+
+        <br />
+        <hr style="width:75%" />
+
+        <h4><i>Future</i></h4>
+        <blockquote>
+            <p>
+                I intend to graduate near the end of 2016. Though I enjoy my current work in IT, after graduation I feel I should eventually take advantage of my degree in order to find employment
+                that falls more squarely in line with everything I have studied and practiced in Information Systems. I plan to live and work in Jacksonville while it continues to grow unless greater
+                opportunites become present elsewhere.
+            </p>
+        </blockquote>
+
+        <br />
+    </div>
+
+    <div class="textContent">
+        <h4>
+            <i>Favorite Web Sites</i> <!--make sure links open in new tabs -->
+        </h4>
+
+        <ul>
+            <li><a href="https://mva.microsoft.com/" target="_blank">Microsoft Virtual Academy</a></li>
+            <li><a href="http://www.arstechnica.com/" target="_blank">Ars Technica</a></li>
+            <li><a href="http://www.theregister.co.uk/" target="_blank">The Register</a></li>
+            <li><a href="http://www.xkcd.com/" target="_blank">XKCD</a></li>
+            <li><a href="http://www.stumbleupon.com/" target="_blank">StumbleUpon</a></li>
+        </ul>
+    </div>
+
+    <br />
+    <h3>Course Schedule</h3>
+
+    <div class="textContent">
+        <h4>
+            <i>Spring 2016</i>
+        </h4>
+
+        <blockquote>
+            <table class="tableStyle">
+                <tr style="background-color:gray;">
+                    <th>
+                        Course Prefix
+                    </th>
+                    <th>
+                        Course Title
+                    </th>
+                    <th>
+                        Meeting Days
+                    </th>
+                    <th>
+                        Meeting Times
+                    </th>
+                </tr>
+                <tr>
+                    <td>CIS 4328</td>
+                    <td style="text-align:left;">Information Systems Senior Project II</td>
+                    <td>Tuesday, Thursday</td>
+                    <td>3:05 PM - 4:20 PM</td>
+                </tr>
+                <tr>
+                    <td>COP 4640</td>
+                    <td style="text-align:left;">Operating Systems Environments and Administration</td>
+                    <td>Tuesday, Thursday</td>
+                    <td>6:00 PM - 7:15 PM</td>
+                </tr>
+                <tr>
+                    <td>COP 4813</td>
+                    <td style="text-align:left;">Internet Programming</td>
+                    <td>Online</td>
+                    <td>Online</td>
+                </tr>
+            </table>
+        </blockquote>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <footer>
+        <div style="float:right;">
+            <a href="../index.html">|Back to ePortfolio|</a>
+        </div>
+    </footer>
+
+</body>
+</html>
