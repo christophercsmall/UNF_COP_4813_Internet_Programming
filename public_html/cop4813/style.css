@@ -1,0 +1,93 @@
+* {
+color: white;
+}
+
+p, li {
+    font-size: medium;
+}
+
+body {
+    background-color: black;
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    min-width: 500px;
+    margin: auto;
+}
+
+hr {
+    border-color: ghostwhite;
+}
+
+footer {
+    margin-bottom: 50px;
+}
+
+table{
+    border-spacing:20px;
+    border-collapse:separate;
+}
+
+td > span{
+    color:greenyellow;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: #808080;
+    color: rgb(255, 248, 220);
+}
+
+a:visited {
+    color: cornsilk;
+}
+
+.textContent {
+    border: double;
+    padding: 10px;
+    margin: 10px;
+    font-family:'Copperplate Gothic';
+}
+
+.thumbnail {
+    height: 150px;
+    width: 150px;
+    padding-right: 20px;
+}
+
+.tableStyle {
+    text-align: center;
+    width: 100%;
+}
+
+.textInput {
+    background-color: black;
+    border-color: white;
+}
+
+.textInput:hover {
+    border-color: greenyellow;
+    color: greenyellow;
+}
+
+.checkBox label{
+    display:block;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+.classBox {
+    text-align:center;
+    display:block;
+
+}
+
+.creatorHeader{
+    font-family: 'Copperplate Gothic';
+    text-align:center;
+}

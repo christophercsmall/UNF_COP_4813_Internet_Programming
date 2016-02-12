@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Assignment 2: Character Creator</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+
+    <script>
+        var reduceSta = 0;
+        var ptnCnt = 0;
+        var elxCnt = 0;
+        var bmbCnt = 0;
+
+        function character(name, gender, classType, att, def, mag, res, hp, sta, ptn, elx, bmb) {
+            this.name = name;
+            this.gender = gender;
+            this.classType = classType;
+            this.att = att;
+            this.def = def;
+            this.mag = mag;
+            this.res = res;
+            this.hp = hp;
+            this.sta = sta;
+            this.ptn = ptn;
+            this.elx = elx;
+            this.bmb = bmb;
+        }
+
+        function creature(name, att, def, mag, res, hp, sta) {
+            this.name = name;
+            this.att = att;
+            this.def = def;
+            this.mag = mag;
+            this.res = res;
+            this.hp = hp;
+            this.sta = sta;
+        }
+
+        window.onload = function () {
+            var today = new Date();
+            document.getElementById("today").innerHTML = today.toDateString();
+            document.getElementById("stamina").innerHTML = reduceSta;
+        }
+
+        function chStam(id, type) {
+
+            var itemId = id;
+
+            if (document.getElementById(itemId).checked) {
+                reduceSta = reduceSta + 1;
+                if (type == "p1" || type == "p2" || type == "p3") {
+                    ptnCnt += 1;
+                }
+                if (type == "e1" || type == "e2" || type == "e3") {
+                    elxCnt += 1;
+                }
+                if (type == "b1" || type == "b2" || type == "b3") {
+                    bmbCnt += 1;
+                }
+            }
+            else {
+                reduceSta = reduceSta - 1;
+                if (type == "p1" || type == "p2" || type == "p3") {
+                    ptnCnt -= 1;
+                }
+                if (type == "e1" || type == "e2" || type == "e3") {
+                    elxCnt -= 1;
+                }
+                if (type == "b1" || type == "b2" || type == "b3") {
+                    bmbCnt -= 1;
+                }
+            }
+            document.getElementById("stamina").innerHTML = reduceSta;
+        }
+        function resetForm() {
+            reduceSta = 0;
+	    ptnCnt = 0;
+	    elxCnt = 0;
+	    bmbCnt = 0;
+            document.getElementById("attButtons").style.display = "none";
+            document.getElementById("itemButtons").style.display = "none";
+	    document.getElementById("stamina").innerHTML = "";
+            document.getElementById("charCreate").style = "";
+            document.getElementById("charResult").style = "display:none"
+            document.getElementById("form").reset();
+	   
+        }
+
+        function submitForm() {
+            if (isValid()) {
+                document.getElementById("charResult").style = "";
+                document.getElementById("charCreate").style = "display:none"
+                var char = new character();
+                char.name = document.getElementById("charName").value;
+                char.gender = document.getElementById("gender").value;
+                char.classType = document.querySelector('input[name="class"]:checked').value;
+                char.ptn = ptnCnt;
+                char.elx = elxCnt;
+                char.bmb = bmbCnt;
+
+                switch (char.classType) {
+                    case "warrior":
+                        char.att = 20; char.def = 15; char.mag = 5; char.res = 5; char.hp = 15; char.sta = 12 - reduceSta;
+                        break;
+                    case "mage":
+                        char.att = 10; char.def = 12; char.mag = 20; char.res = 15; char.hp = 15; char.sta = 13 - reduceSta;
+                        break;
+                    case "healer":
+                        char.att = 9; char.def = 11; char.mag = 18; char.res = 20; char.hp = 18; char.sta = 14 - reduceSta;
+                        break;
+                    case "ranger":
+                        char.att = 18; char.def = 14; char.mag = 10; char.res = 10; char.hp = 18; char.sta = 15 - reduceSta;
+                        break;
+                    case "rogue":
+                        char.att = 15; char.def = 15; char.mag = 10; char.res = 13; char.hp = 17; char.sta = 12 - reduceSta;
+                        break;
+                }
+                document.getElementById("hdrName").innerHTML = char.name;
+                document.getElementById("nam").innerHTML = char.name;
+                document.getElementById("gen").innerHTML = char.gender;
+                document.getElementById("cla").innerHTML = char.classType;
+                document.getElementById("att").innerHTML = char.att;
+                document.getElementById("def").innerHTML = char.def;
+                document.getElementById("mag").innerHTML = char.mag;
+                document.getElementById("res").innerHTML = char.res;
+                document.getElementById("hp").innerHTML = char.hp;
+                document.getElementById("sta").innerHTML = char.sta;
+                document.getElementById("ptn").innerHTML = char.ptn;
+                document.getElementById("elx").innerHTML = char.elx;
+                document.getElementById("bmb").innerHTML = char.bmb;
+
+                
+            }
+            else {
+                alert("Please make sure you have entered:" + "\n" + "1. Name" + "\n" + "2: Gender" + "\n" + "3: Character Class");
+            }
+        }
+
+        function isValid() {
+            var result = document.getElementById("form").checkValidity();
+            return result;
+        }
+
+        function createCreature() {
+            document.getElementById("attButtons").style.display = "";
+            document.getElementById("itemButtons").style.display = "";
+            var cr = new creature();
+            cr.name = document.getElementById("creature").value;
+            switch (cr.name) {
+                case "cyclops":
+                    cr.att = 18; cr.def = 18; cr.mag = 0; cr.res = 5; cr.hp = 20; cr.sta = 12;
+                    break;
+                case "wizard":
+                    cr.att = 10; cr.def = 15; cr.mag = 18; cr.res = 14; cr.hp = 30; cr.sta = 13;
+                    break;
+                case "dragon":
+                    cr.att = 20; cr.def = 17; cr.mag = 10; cr.res = 15; cr.hp = 40; cr.sta = 14;
+                    break;
+            }
+            document.getElementById("crName").innerHTML = cr.name;
+            document.getElementById("crAtt").innerHTML = cr.att;
+            document.getElementById("crDef").innerHTML = cr.def;
+            document.getElementById("crMag").innerHTML = cr.mag;
+            document.getElementById("crRes").innerHTML = cr.res;
+            document.getElementById("crHp").innerHTML = cr.hp;
+            document.getElementById("crSta").innerHTML = cr.sta;
+        }
+
+        function attMelee() {
+            var c1 = document.getElementById("hp").innerHTML;
+            var a1 = document.getElementById("def").innerHTML;
+            var b1 = document.getElementById("crAtt").innerHTML;
+            var hp1 = (c1 - (b1 - a1));
+            if ((b1 - a1) <= 0) {
+                hp1 = (c1 - 1);
+            }
+            document.getElementById("hp").innerHTML = hp1;
+
+            var z1 = document.getElementById("crHp").innerHTML;
+            var x1 = document.getElementById("att").innerHTML;
+            var y1 = document.getElementById("crDef").innerHTML;
+            var crHp1 = (z1 - (x1 - y1));
+            if ((x1 - y1) <= 0) {
+                crHp1 = (z1 - 1);
+            }
+            document.getElementById("crHp").innerHTML = crHp1;
+            checkGameStatus();
+        }
+
+        function attMagic() {
+            var c2 = document.getElementById("hp").innerHTML;
+            var a2 = document.getElementById("res").innerHTML;
+            var b2 = document.getElementById("crMag").innerHTML;
+            var hp2 = (c2 - (b2 - a2));
+            if ((b2-a2) <= 0){
+                hp2 = (c2-1);
+            }
+            document.getElementById("hp").innerHTML = hp2;
+
+            var z3 = document.getElementById("crHp").innerHTML;
+            var x3 = document.getElementById("mag").innerHTML;
+            var y3 = document.getElementById("crRes").innerHTML;            
+            var crHp2 = (z3 - (x3 - y3));
+            if ((x3-y3) <= 0) {
+                crHp2 = (z3-1);
+            }
+            document.getElementById("crHp").innerHTML = crHp2;
+            checkGameStatus();
+        }
+
+        function usePotion() {
+            if (ptnCnt > 0) {
+                var hp3 = document.getElementById("hp").innerHTML;
+                var ptn1 = 2;
+                var hp3 = (parseFloat(hp3) + ptn1);
+                document.getElementById("hp").innerHTML = hp3;
+                document.getElementById("ptn").innerHTML = ptnCnt -= 1;
+            }
+            else {
+                ptnCnt = 0;
+            }
+        }
+
+        function useElixer() {
+
+        }
+
+        function useBomb() {
+            if (bmbCnt > 0) {
+                var hp4 = document.getElementById("crHp").innerHTML;
+                var bmb1 = 2;
+                var hp4 = (hp4 - bmb1);
+                document.getElementById("crHp").innerHTML = hp4;
+                document.getElementById("bmb").innerHTML = bmbCnt -= 1;
+            }
+            else {
+                bmbCnt = 0;
+            }
+            checkGameStatus();
+        }
+
+        function checkGameStatus() {
+            if (document.getElementById("hp").innerHTML <= 0) {
+                alert("You lost. Click OK to reset.");
+                document.getElementById("reset").click();
+            }
+            if (document.getElementById("crHp").innerHTML <= 0) {
+                alert("You won. Click OK to reset.");
+                document.getElementById("reset").click();
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div style="float:right;">
+        <p id="today" style="text-align:right; font-size:small;"></p>
+        <a href="../index.html">|Back to ePortfolio|</a>
+    </div>
+
+    <h1>
+       Assignment 2: Character Creator
+    </h1>
+    <br />
+
+    <form id="form">
+
+        <br />
+        <hr />
+        <br />
+
+        <div id="charCreate" class="textContent textInput" style="">
+
+            <h1>Name: <input id="charName" class="textInput textContent" type="text" name="charName" required /></h1>
+
+            <div style="text-align:center; margin-bottom:50px;">
+                <h1 class="creatorHeader">Gender</h1>
+                <select id="gender" required class="textInput textContent" style="font-size:x-large;" name="gender">
+                    <option value="">Choose...</option>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                    <option value="r">Robot (Neither)</option>
+                </select>
+            </div>
+
+            <h1 class="creatorHeader">Character Class</h1>
+            <div class="" style="padding-left:20%; padding-right:20%; margin-bottom:50px;">
+                <label for="w" class="textInput textContent classBox" style="width:auto;">
+                    <input id="w" type="radio" name="class" value="warrior" required /> Warrior
+                </label>
+
+                <label for="m" class="textInput textContent classBox" style="width:auto;">
+                    <input id="m" type="radio" name="class" value="mage" required /> Mage
+                </label>
+
+                <label for="h" class="textInput textContent classBox" style="width:auto;">
+                    <input id="h" type="radio" name="class" value="healer" required /> Healer
+                </label>
+
+                <label for="ra" class="textInput textContent classBox" style="width:auto;">
+                    <input id="ra" type="radio" name="class" value="ranger" required /> Ranger
+                </label>
+
+                <label for="ro" class="textInput textContent classBox" style="width:auto;">
+                    <input id="ro" type="radio" name="class" value="rogue" required /> Rogue
+                </label>
+            </div>
+
+            <h1 class="creatorHeader">Items</h1>
+            <div style="text-align:center; display:flex;">
+                <div class="checkBox" style="width:33.3333333%; float:left;">
+                    <label for="p1" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'p1')" id="p1" type="checkbox" name="item" value="p1" /> Potion
+                    </label>
+
+                    <label for="e1" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'e1')" id="e1" type="checkbox" name="item" value="e1" /> Elixer
+                    </label>
+
+                    <label for="b1" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'b1')" id="b1" type="checkbox" name="item" value="b1" /> Bomb
+                    </label>
+                </div>
+
+                <div class="checkBox" style="width:33.3333333%; float:left;">
+                    <label for="p2" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'p2')" id="p2" type="checkbox" name="item" value="p2" /> Potion
+                    </label>
+
+                    <label for="e2" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'e2')" id="e2" type="checkbox" name="item" value="e2" /> Elixer
+                    </label>
+
+                    <label for="b2" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'b2')" id="b2" type="checkbox" name="item" value="b2" /> Bomb
+                    </label>
+                </div>
+
+                <div class="checkBox" style="width:33.3333333%; float:left;">
+                    <label for="p3" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'p3')" id="p3" type="checkbox" name="item" value="p3" /> Potion
+                    </label>
+
+                    <label for="e3" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'e3')" id="e3" type="checkbox" name="item" value="e3" /> Elixer
+                    </label>
+
+                    <label for="b3" class="textInput textContent" style="width:auto;">
+                        <input onchange="chStam(this.id, 'b3')" id="b3" type="checkbox" name="item" value="b3" /> Bomb
+                    </label>
+                </div>
+            </div>
+
+            <div class="textContent" style="text-align:center; width:100px; margin:auto;">
+
+                <span>Stamina: </span><br />
+                <span>- </span><span id="stamina"></span>
+            </div>
+        </div>
+
+        <br />
+        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+            <input id="submit" onclick="submitForm()" type="button" class="textInput" value="Submit" />
+            <input id="reset" onclick="resetForm()" type="reset" class="textInput" value="Reset" />
+        </div>
+
+        <br />
+
+
+        <div id="charResult" style="display:none">
+            <h1 id="hdrName" class="creatorHeader"></h1>
+            <table class="tableStyle textContent textInput" style="margin:auto;">
+                <tr>
+                    <td>
+                        Name:   <span id="nam"></span>
+                    </td>
+                    <td>
+                        Gender: <span id="gen"></span>
+                    </td>
+                    <td>
+                        Class:  <span id="cla"></span>
+                    </td>
+                    <td>
+                        Stamina:    <span id="sta"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Attack: <span id="att"></span>
+                    </td>
+                    <td>
+                        Defense:    <span id="def"></span>
+                    </td>
+                    <td>
+                        Magic:  <span id="mag"></span>
+                    </td>
+                    <td>
+                        Resistance: <span id="res"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Health Points:  <span id="hp"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Potions:    <span id="ptn"></span><br />
+                        Elixers:    <span id="elx"></span><br />
+                        Bombs:  <span id="bmb"></span><br />
+                    </td>
+                </tr>
+            </table>
+
+            <table class="tableStyle textContent textInput" style="margin:auto;">
+                <tr>
+                    <td width="50%;">
+                        <div style="text-align:center; margin-bottom:50px;">
+                            <h1 class="creatorHeader">Creature</h1>
+                            <select id="creature" onchange="createCreature(this.value)" class="textInput textContent" style="font-size:x-large;" name="creature">
+                                <option selected value="">Choose...</option>
+                                <option value="cyclops"> Cyclops </option>
+                                <option value="wizard"> Wizard </option>
+                                <option value="dragon"> Dragon </option>
+                            </select>
+                        </div>
+
+                        Name:   <span id="crName"></span><br />
+                        Attack:   <span id="crAtt"></span><br />
+                        Defense:   <span id="crDef"></span><br />
+                        Magic:   <span id="crMag"></span><br />
+                        Resistatnce:   <span id="crRes"></span><br />
+                        Health Points:   <span id="crHp"></span><br />
+                        Stamina:   <span id="crSta"></span><br />
+                    </td>
+
+                    <td id="attButtons" style="display:none; padding:50px;">
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="attMelee()" type="button" class="textInput" value="Melee Attack" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="attMagic()" type="button" class="textInput" value="Magic Attack" style="font-size:x-large;" />
+                        </div>
+                    </td>
+                    <td id="itemButtons" style="display:none; padding:50px;">
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="usePotion()" type="button" class="textInput" value="Potion" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="useElixer()" type="button" class="textInput" value="Elixer" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="useBomb()" type="button" class="textInput" value="Bomb" style="font-size:x-large;" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </form><!--end form-->
+
+
+    <br />
+    <hr />
+    <br />
+
+    <footer>
+        <div style="float:right;">
+            <a href="../index.html">|Back to ePortfolio|</a>
+        </div>
+    </footer>
+
+</body>
+</html>
+
