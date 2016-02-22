@@ -11,6 +11,7 @@
     <script>      
 
         var arr = [];
+        var testArr = [];
 
         window.onload = function () {
             var today = new Date();
@@ -22,9 +23,9 @@
                 
                 arr = document.getElementById("numbersArea").value.split('\n');
                 
-                arr.forEach(toInt);
+                arr.forEach(formatNum);
 
-                document.getElementById("numbersList").innerHTML = arr.sort(function (a, b) { return a - b });;
+                document.getElementById("numbersList").innerHTML = arr.sort(function (a, b) { return a - b });
 
                 document.getElementById("results").style.display = "";
 
@@ -33,11 +34,19 @@
                 document.getElementById("mean").innerHTML = findMean(arr);
                 document.getElementById("median").innerHTML = findMedian(arr);
                 document.getElementById("mode").innerHTML = findMode(arr);
+                document.getElementById("variance").innerHTML = findVariance(arr);
+                document.getElementById("stdDev").innerHTML = findStandardDeviation(arr);
             }
+            document.getElementById("showUnitTests").style.display = "none";
         }
 
-        function toInt(elem, i, arr) {
-            arr[i] = parseInt(elem);
+        function resetForm() {
+            document.getElementById("results").style.display = "none"
+            document.getElementById("showUnitTests").style.display = "none";
+            document.getElementById("testResultsPic").style.display = "none";
+            document.getElementById("testResults").style.display = "none";
+            document.getElementById("dataSetNumbers").innerHTML = "";
+
         }
 
         function isValid() {
@@ -45,7 +54,55 @@
             return result;
         }
 
+        function showUnitTests() {
+            document.getElementById("results").style.display = "none"
+            document.getElementById("showUnitTests").style.display = "";
+        }
 
+        function utLoad(val) {            
+            switch (val) {
+                case "ut1":
+                    testArr = [4, 5, 1, 2, 3];
+                    break;
+                case "ut2":
+                    testArr = [4.4445, 4.4445, 3.2, 2, 1];
+                    break;
+                case "ut3":
+                    testArr = [5, 5, 3, 2, 2, 1];
+                    break;
+            }
+            document.getElementById("dataSetNumbers").innerHTML = testArr;
+        }
+
+        function runTest() {                
+            testArr.forEach(formatNum);
+
+            testArr.sort(function (a, b) { return a - b });
+
+            document.getElementById("testResults").style.display = "";
+
+            document.getElementById("countT").innerHTML = findN(testArr);
+            document.getElementById("sumT").innerHTML = findSum(testArr);
+            document.getElementById("meanT").innerHTML = findMean(testArr);
+            document.getElementById("medianT").innerHTML = findMedian(testArr);
+            document.getElementById("modeT").innerHTML = findMode(testArr);
+            document.getElementById("varianceT").innerHTML = findVariance(testArr);
+            document.getElementById("stdDevT").innerHTML = findStandardDeviation(testArr);
+
+            document.getElementById("testResults").style.display = "";
+        }
+
+        function showTestResultsPic(){
+            document.getElementById("testResultsPic").style.display = "";
+        }
+
+        function formatNum(elem, i, arr) {
+            arr[i] = round(parseFloat(elem));
+        }
+
+        function round(val) {
+            return Number(Math.round(val + 'e' + 2) + 'e-' + 2);
+        }
 
     </script>
 
@@ -69,21 +126,24 @@
         <br />
 
         <div id="" class="textContent textInput" style="">
-
-            <h1>Number List</h1>            
-            <textarea id="numbersArea" class="textContent textInput" style=""></textarea>
-            <p id="numbersList"></p>
-
             <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                <h1>Number List</h1>
+                <textarea id="numbersArea" class="textContent textInput" style=""></textarea>
+                <br />
                 <input id="submit" onclick="submitNumbers()" type="button" class="textInput" value="Submit Numbers" />
                 <input id="reset" onclick="resetForm()" type="reset" class="textInput" value="Reset" />
-            </div>
-
+                <br />
+                <br />
+                <input id="" onclick="showUnitTests()" type="button" class="textInput" value="Show Unit Tests" />
+            </div>            
         </div>
-
-        <br />
        
         <div id="results" style="display:none">
+            <div class="textContent textInput" style="text-align:center">
+                <h1>Your Numbers Sorted</h1>
+                <p id="numbersList"></p>
+            </div>
+
             <table class="tableStyle textContent textInput" style="margin:auto;">
                 <tr>
                     <td>
@@ -107,54 +167,66 @@
                     <td>
                         Standard Deviation    <p id="stdDev">0</p>
                     </td>
-                </tr>               
-                
-            </table>
+                </tr>
+            </table>       
+        </div>
+        
+    <br />
 
+        <div id="showUnitTests" style="display:none">
             <table class="tableStyle textContent textInput" style="margin:auto;">
                 <tr>
                     <td width="50%;">
                         <div style="text-align:center; margin-bottom:50px;">
-                            <h1 class="creatorHeader">Creature</h1>
-                            <select id="creature" onchange="createCreature(this.value)" class="textInput textContent" style="font-size:x-large;" name="creature">
-                                <option selected value="">Choose...</option>
-                                <option value="cyclops"> Cyclops </option>
-                                <option value="wizard"> Wizard </option>
-                                <option value="dragon"> Dragon </option>
+                            <h1>Unit Tests</h1>
+                            <select id="" onchange="utLoad(this.value)" class="textInput textContent" style="font-size:x-large;" name="unitTests">
+                                <option selected value="">Choose Data Set...</option>
+                                <option value="ut1"> Data Set 1 </option>
+                                <option value="ut2"> Data Set 2 </option>
+                                <option value="ut3"> Data Set 3 </option>
                             </select>
                         </div>
 
-                        Name:   <span id="crName"></span><br />
-                        Attack:   <span id="crAtt"></span><br />
-                        Defense:   <span id="crDef"></span><br />
-                        Magic:   <span id="crMag"></span><br />
-                        Resistatnce:   <span id="crRes"></span><br />
-                        Health Points:   <span id="crHp"></span><br />
-                        Stamina:   <span id="crSta"></span><br />
+                        Data Set Numbers<p id="dataSetNumbers"></p><br />
                     </td>
 
-                    <td id="attButtons" style="display:none; padding:50px;">
-                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
-                            <input onclick="attMelee()" type="button" class="textInput" value="Melee Attack" style="font-size:x-large;" />
+                    <td id="testButtons" style="padding:50px;">
+                        <div style="margin-bottom:50px; text-align:center;">
+                            <input onclick="runTest()" type="button" class="textInput" value="Run Test" style="font-size:x-large;" />
                         </div>
-                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
-                            <input onclick="attMagic()" type="button" class="textInput" value="Magic Attack" style="font-size:x-large;" />
+                        <div style="margin-bottom:50px; text-align:center;">
+                            <input onclick="showTestResultsPic()" type="button" class="textInput" value="Show Control Results" style="font-size:x-large;" />
                         </div>
                     </td>
-                    <td id="itemButtons" style="display:none; padding:50px;">
-                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
-                            <input onclick="usePotion()" type="button" class="textInput" value="Potion" style="font-size:x-large;" />
-                        </div>
-                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
-                            <input onclick="useElixer()" type="button" class="textInput" value="Elixer" style="font-size:x-large;" />
-                        </div>
-                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
-                            <input onclick="useBomb()" type="button" class="textInput" value="Bomb" style="font-size:x-large;" />
-                        </div>
+
+                </tr>
+            </table>
+            <table id="testResults" class="tableStyle textContent textInput" style="margin:auto; display:none;">
+                <tr>
+                    <td>
+                        Mean   <p id="meanT">0</p>
+                    </td>
+                    <td>
+                        Median <p id="medianT">0</p>
+                    </td>
+                    <td>
+                        Count  <p id="countT">0</p>
+                    </td>
+                    <td>
+                        Sum    <p id="sumT">0</p>
+                    </td>
+                    <td>
+                        Mode    <p id="modeT">0</p>
+                    </td>
+                    <td>
+                        Variance    <p id="varianceT">0</p>
+                    </td>
+                    <td>
+                        Standard Deviation    <p id="stdDevT">0</p>
                     </td>
                 </tr>
-
             </table>
+            <div id="testResultsPic" class="textContent textInput" style="display:none; text-align:center;"><img src="testResults.jpg" style="max-width:100%"/></div>
         </div>
     </form><!--end form-->
 

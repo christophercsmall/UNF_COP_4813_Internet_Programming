@@ -8,13 +8,13 @@ function findSum(arr){
 	for (var i in arr) {
 		total += arr[i];
 	}
-	return total;
+	return round(total);
 }
 
 function findMean(arr){
 	var total = 0;	
 	total = findSum(arr)/findN(arr);	
-	return total;
+	return round(total);
 }
 
 function findMedian(arr){
@@ -22,10 +22,10 @@ function findMedian(arr){
 	var med = Math.floor(arr.length / 2);
 
 	if (findN(sortedArr) % 2) {
-		return arr[med];
+		return round(arr[med]);
 	}
 	else {
-		return (arr[med - 1] + arr[med]) / 2;
+		return round((arr[med - 1] + arr[med]) / 2);
 	}
 }
 
@@ -60,10 +60,19 @@ function findMode(arr) {
 	return multiModes;
 }
 
-function findVariance(arr){
+function findVariance(arr) {
+	var varArr = [];
+	var variance = 0;
 	
+	for (var i = 0; i < arr.length; i++) {
+		varArr[i] = Math.pow(arr[i] - findMean(arr), 2)
+	}
+
+	variance = findSum(varArr)/findN(varArr);
+	return round(variance);
 }
 
 function findStandardDeviation(arr){
-	
+	var stdDev = Math.sqrt(findVariance(arr));
+	return round(stdDev);
 }
