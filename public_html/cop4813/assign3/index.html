@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Assignment 2: Character Creator</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <script src="Statistics.js"></script>
+
+    <script>      
+
+        var arr = [];
+
+        window.onload = function () {
+            var today = new Date();
+            document.getElementById("today").innerHTML = today.toDateString();
+        }       
+
+        function submitNumbers() {
+            if (isValid()) {
+                
+                arr = document.getElementById("numbersArea").value.split('\n');
+                
+                arr.forEach(toInt);
+
+                document.getElementById("numbersList").innerHTML = arr.sort(function (a, b) { return a - b });;
+
+                document.getElementById("results").style.display = "";
+
+                document.getElementById("count").innerHTML = findN(arr);
+                document.getElementById("sum").innerHTML = findSum(arr);
+                document.getElementById("mean").innerHTML = findMean(arr);
+                document.getElementById("median").innerHTML = findMedian(arr);
+                document.getElementById("mode").innerHTML = findMode(arr);
+            }
+        }
+
+        function toInt(elem, i, arr) {
+            arr[i] = parseInt(elem);
+        }
+
+        function isValid() {
+            var result = document.getElementById("form").checkValidity();
+            return result;
+        }
+
+
+
+    </script>
+
+</head>
+
+<body>
+    <div style="float:right;">
+        <p id="today" style="text-align:right; font-size:small;"></p>
+        <a href="../index.html">|Back to ePortfolio|</a>
+    </div>
+
+    <h1>
+       Assignment 3: Statistics Functions using JavaScrip and Arrays
+    </h1>
+    <br />
+
+    <form id="form">
+
+        <br />
+        <hr />
+        <br />
+
+        <div id="" class="textContent textInput" style="">
+
+            <h1>Number List</h1>            
+            <textarea id="numbersArea" class="textContent textInput" style=""></textarea>
+            <p id="numbersList"></p>
+
+            <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                <input id="submit" onclick="submitNumbers()" type="button" class="textInput" value="Submit Numbers" />
+                <input id="reset" onclick="resetForm()" type="reset" class="textInput" value="Reset" />
+            </div>
+
+        </div>
+
+        <br />
+       
+        <div id="results" style="display:none">
+            <table class="tableStyle textContent textInput" style="margin:auto;">
+                <tr>
+                    <td>
+                        Mean   <p id="mean">0</p>
+                    </td>
+                    <td>
+                        Median <p id="median">0</p>
+                    </td>
+                    <td>
+                        Count  <p id="count">0</p>
+                    </td>
+                    <td>
+                        Sum    <p id="sum">0</p>
+                    </td>
+                    <td>
+                        Mode    <p id="mode">0</p>
+                    </td>
+                    <td>
+                        Variance    <p id="variance">0</p>
+                    </td>
+                    <td>
+                        Standard Deviation    <p id="stdDev">0</p>
+                    </td>
+                </tr>               
+                
+            </table>
+
+            <table class="tableStyle textContent textInput" style="margin:auto;">
+                <tr>
+                    <td width="50%;">
+                        <div style="text-align:center; margin-bottom:50px;">
+                            <h1 class="creatorHeader">Creature</h1>
+                            <select id="creature" onchange="createCreature(this.value)" class="textInput textContent" style="font-size:x-large;" name="creature">
+                                <option selected value="">Choose...</option>
+                                <option value="cyclops"> Cyclops </option>
+                                <option value="wizard"> Wizard </option>
+                                <option value="dragon"> Dragon </option>
+                            </select>
+                        </div>
+
+                        Name:   <span id="crName"></span><br />
+                        Attack:   <span id="crAtt"></span><br />
+                        Defense:   <span id="crDef"></span><br />
+                        Magic:   <span id="crMag"></span><br />
+                        Resistatnce:   <span id="crRes"></span><br />
+                        Health Points:   <span id="crHp"></span><br />
+                        Stamina:   <span id="crSta"></span><br />
+                    </td>
+
+                    <td id="attButtons" style="display:none; padding:50px;">
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="attMelee()" type="button" class="textInput" value="Melee Attack" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="attMagic()" type="button" class="textInput" value="Magic Attack" style="font-size:x-large;" />
+                        </div>
+                    </td>
+                    <td id="itemButtons" style="display:none; padding:50px;">
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="usePotion()" type="button" class="textInput" value="Potion" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="useElixer()" type="button" class="textInput" value="Elixer" style="font-size:x-large;" />
+                        </div>
+                        <div style="padding-left:20%; padding-right:20%; margin-bottom:50px; text-align:center;">
+                            <input onclick="useBomb()" type="button" class="textInput" value="Bomb" style="font-size:x-large;" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </form><!--end form-->
+
+
+    <br />
+    <hr />
+    <br />
+
+    <footer>
+        <div style="float:right;">
+            <a href="../index.html">|Back to ePortfolio|</a>
+        </div>
+    </footer>
+
+</body>
+</html>
+
