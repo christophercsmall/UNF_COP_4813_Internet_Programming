@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Post - Start Bootstrap Template</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <script>
+        var questions = [];
+        var userAnswers = [];
+        var key = [];
+        var temp = "";
+        var q1Answers, q2Answers, q3Answers, q4Answers = [];
+        var counter = 0;
+        var points = 0;
+
+        window.onload = function () {
+            questions = ["Q1", "Q2", "Q3", "Q4"];
+            key = ["A", "B", "C", "D"];
+            q1Answers = ["This answer is True", "This is False", "This is False", "This is False"];
+            q2Answers = ["This is False", "This answer is True", "This is False", "This is False"];
+            q3Answers = ["This is False", "This is False", "This answer is True", "This is False"];
+            q4Answers = ["This is False", "This is False", "This is False", "This answer is True"];
+            questionAnswers = [q1Answers, q2Answers, q3Answers, q4Answers]
+
+            loadNextQuestion();
+        }
+
+        function enableSubmitBtn(val) {
+            document.getElementById("submit").style.display = "";
+            temp = val;
+        }
+        
+        function submitAnswer() {
+            userAnswers.push(temp);
+            counter++;
+            if (counter == questions.length) {
+                gradeTest();
+                alert("test over");
+            }
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+
+            document.getElementById("question").innerHTML = questions[counter];
+            document.getElementById("ansA").innerHTML = questionAnswers[counter][0];
+            document.getElementById("ansB").innerHTML = questionAnswers[counter][1];
+            document.getElementById("ansC").innerHTML = questionAnswers[counter][2];
+            document.getElementById("ansD").innerHTML = questionAnswers[counter][3];            
+        }
+
+        function gradeTest() {
+            for (var x = 0; x < questions.length; x++) {
+                if (userAnswers[x] == key[x]) {
+                    points++;
+                }
+            }
+            alert("you got "+points+" points.");
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                <!-- Title -->
+                <h1>Assessment</h1>
+
+                <p class="lead">
+                    <a href="#">Test # </a>
+                </p>
+
+                <hr>
+
+                <p><span class="glyphicon glyphicon-time"></span> Test Timer</p>
+
+                <hr>
+                    <p id="question" class="lead">The Question goes here.</p>
+                <hr>
+
+                <!--Content -->
+                
+                <form id="" class="">
+                    <div class="btn-group btn-group-vertical btn-group-lg" style="width:100%;">
+                        <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="A" class="btn btn-default" style="text-align:left;">A:<span id="ansA"> </span></button>
+                        <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="B" class="btn btn-default" style="text-align:left;">B:<span id="ansB"> </span></button>
+                        <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="C" class="btn btn-default" style="text-align:left;">C:<span id="ansC"> </span></button>
+                        <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="D" class="btn btn-default" style="text-align:left;">D:<span id="ansD"> </span></button>
+                    </div>
+                    <hr />
+                    <button id="submit" type="button" onclick="submitAnswer()" class="btn-success btn-lg" value="Submit" style="display:none">Submit</button>
+                </form>
+                <hr>
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <!-- Categories Well -->
+                <div class="well" style="margin-top:100px;">
+                    <h4>Blog Categories</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                                <li>
+                                    <a href="#">Category Name</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4>Side Widget Well</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="js/jquery-2.2.1.js"></script>
+
+    <script src="js/bootstrap.js"></script>
+
+    <script>
+
+    </script>
+
+
+</body>
+
+</html>
