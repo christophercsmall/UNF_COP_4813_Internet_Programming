@@ -51,6 +51,17 @@
         context.strokeStyle = 'black';
         context.stroke();
     }
+    function drawClrImg(clrImage, context) {
+        context.beginPath();
+        context.rect(clrImage.x, clrImage.y, clrImage.width, clrImage.height);
+        context.fillStyle = 'grey';
+        context.fill();
+    }
+    function drawMsg(msg, context) {
+        context.font = msg.font;
+        context.fillStyle = '#00af00';
+        context.fillText(msg.text, msg.x, msg.y);
+    }
 
     function styleCanvas(canvasBackground, context) {
         context.beginPath();
@@ -199,30 +210,75 @@
 
         }
     }
-    var char = ['../img/charR1.png', '../img/charR2.png', 0, 450];
+
+    var char = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 450, 'right'];
 
     function animateChar(lastTime, char, runAnimation, canvas, context) {
-        var img = new Image();
-        img.src = char[0];
+        if (runAnimation.value) {
+           
+            var clrImg = new Image();
+            var img = new Image();            
+            
+            if (char[4] >= canvas.width - 100) {
+                char[6] = "left";                                
+            }
+            if (char[4] < 0) {
+                char[6] = "right";
+            }
 
-        var time = (new Date()).getTime();
-        var timeDiff = time - lastTime;
+            if (char[6] == "right") {
+                if (Math.floor(char[4]) % 2 == 0) {
+                    img.src = char[1];
+                }
+                else {
+                    img.src = char[0];
+                }
 
-        // pixels / second
-        var linearSpeed = 500;
-        var linearDistEachFrame = linearSpeed * timeDiff / 1000;
-        var currentX = char[2];
+                var time = (new Date()).getTime();
+                var timeDiff = time - lastTime;
 
-        var newX = currentX + linearDistEachFrame;
-        char[2] = newX;
+                // pixels / second
+                var linearSpeed = 100;
+                var linearDistEachFrame = linearSpeed * timeDiff / 1000;
+                var currentX = char[4];
 
-        context.drawImage(img, newX, 450);        
+                var newX = currentX + linearDistEachFrame;
+                char[4] = newX;
 
-        requestAnimFrame(function () {
-            animateChar(time, char, runAnimation, canvas, context);
+                clrImage.x = newX;
 
-        });
-        
+                drawClrImg(clrImage, context);
+                context.drawImage(img, newX, char[5]);
+            }
+            if (char[6] == "left") {
+                if (Math.floor(char[4]) % 2 == 0) {
+                    img.src = char[3];
+                }
+                else {
+                    img.src = char[2];
+                }
+
+                var time = (new Date()).getTime();
+                var timeDiff = time - lastTime;
+
+                // pixels / second
+                var linearSpeed = 100;
+                var linearDistEachFrame = linearSpeed * timeDiff / 1000;
+                var currentX = char[4];
+
+                var newX = currentX - linearDistEachFrame;
+                char[4] = newX;
+
+                clrImage.x = newX;
+
+                drawClrImg(clrImage, context);
+                context.drawImage(img, newX, char[5]);
+            }
+
+            requestAnimFrame(function () {
+                animateChar(time, char, runAnimation, canvas, context);
+            });
+        }
     }
 
     var myRectangle = {
@@ -256,7 +312,21 @@
         borderWidth: 1
     };
 
+    var clrImage = {
+        x: 0,
+        y: 448,
+        width: 100,
+        height: 100,
+    };
+
+    var msg = {
+        x: (canvas.width / 2),
+        y: (canvas.height / 2),
+        font: '20pt Helvetica',
+        text: 'Click to begin.'
+    };
     
+    var clicks = -1;
 
     /*
      * define the runAnimation boolean as an obect
@@ -268,7 +338,9 @@
 
     // add click listener to canvas
     document.getElementById('myCanvas').addEventListener('click', function () {
+        
         // flip flag
+        clicks += 1;
         runAnimation.value = !runAnimation.value;
         if (runAnimation.value) {
             var date = new Date();
@@ -286,6 +358,6 @@
     drawRect2(myRectangle2, context);
     drawText(myText, context);
     drawText2(myText2, context);
-
-
+    drawMsg(msg, context);
+    document.getElementById('myCanvas').click();
 };
