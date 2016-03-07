@@ -8,7 +8,6 @@
         function (callback) {
             window.setTimeout(callback, 1000 / 60);
         };
-
     })();
 
     canvasWidth();
@@ -16,7 +15,7 @@
     function canvasWidth() {
         var canvas = document.getElementsByTagName('canvas')[0];
         context.font = 'bold 30pt Courier New';
-        var text = ' 1 1 0 0 0 0 0 0 1 0 1 0 1 0 0 0 0 1 1 0 0 1 0 0 0 1 0 0 0 0 1 0';
+        var text = ' 1 1 0 0 0 0 0 0 1 0 1 0 1 0 0 0 0 1 1 0 0 1 0 0 0 1 0 0 0 0 1 0 ';
         var width = context.measureText(text).width;
         canvas.width = width;
     }
@@ -42,13 +41,18 @@
         context.strokeStyle = 'black';
         context.stroke();
     }
+    function clrMsgText() {
+        context.clearRect(0, 0, canvas.width, 450);
+        context.fillStyle = 'grey';
+        context.fillRect(0, 0, canvas.width, 450);
+    }
     function drawRect(myRectangle, context) {
         context.beginPath();
         context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
         context.fillStyle = 'black';
         context.fill();
         context.lineWidth = myRectangle.borderWidth;
-        context.strokeStyle = 'black';
+        context.strokeStyle = '#00af00';
         context.stroke();
     }
     function drawRect2(myRectangle2, context) {
@@ -57,7 +61,7 @@
         context.fillStyle = 'black';
         context.fill();
         context.lineWidth = myRectangle2.borderWidth;
-        context.strokeStyle = 'black';
+        context.strokeStyle = '#00af00';
         context.stroke();
     }
     function drawOctetRect(octetRect, context) {
@@ -75,8 +79,17 @@
     }
     function drawMsg(msg, context) {
         context.font = msg.font;
-        context.fillStyle = '#00af00';
+        context.strokeStyle = 'black';
+        context.lineWidth = 1;
+        context.fillStyle = 'white';
         context.fillText(msg.text, msg.x, msg.y);
+    }
+    function drawClickTxt(clickTxt, context) {
+        context.font = clickTxt.font;
+        context.strokeStyle = 'black';
+        context.lineWidth = 1;
+        context.fillStyle = 'white';
+        context.fillText(clickTxt.text, clickTxt.x, clickTxt.y);
     }
     function drawOctTxt(octetTxt, context) {
         context.font = 'bold 30pt Courier New';
@@ -310,14 +323,14 @@
             });
         }
     }
-    function animateCharSpk(charSpk, runCharSpkAnimation, canvas, context) {        
-        
+    function animateCharSpk(charSpk, runCharSpkAnimation, canvas, context) {
+
+        var clrImg = new Image();
+        var img = new Image();        
+
         if (runCharSpkAnimation.value) {
 
-            var currentX = char[4];
-
-            var clrImg = new Image();
-            var img = new Image();
+            var currentX = char[4];            
 
             switch (charSpk[6]) {
                 case 0:
@@ -343,20 +356,78 @@
             }
 
             var newX = currentX;
-
-            clrImage.x = newX;
-            drawClrImg(clrImage, context);
+            
             context.drawImage(img, newX, charSpk[5]);
 
             requestAnimFrame(setTimeout(function () {
+                clrImage.x = newX;
+                drawClrImg(clrImage, context);
                 animateCharSpk(charSpk, runCharSpkAnimation, canvas, context);
-            }, 125));
+            }, 75));
 
         }
     }
+    function animateCharEnd(charEndAnim, runCharAnimationEnd, canvas, context) {
+        if (runCharAnimationEnd.value) {
 
-    var char = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 450, 'right'];
-    var charSpk = ['../img/charSpk1.png', '../img/charSpk2.png', '../img/charSpk3.png', '../img/charSpk4.png', 0, 450, 0];
+            var clrImg = new Image();
+            var img = new Image();
+
+            if (charEndAnim[4] >= canvas.width - 100) {
+                charEndAnim[6] = "left";
+            }
+            if (charEndAnim[4] < 0) {
+                charEndAnim[6] = "right";
+            }
+
+            if (charEndAnim[6] == "right") {
+                if (charEndAnim[4] % 2 == 0) {
+                    img.src = charEndAnim[1];
+                }
+                if (charEndAnim[4] % 5 == 0){
+                    img.src = charEndAnim[0];
+                }
+
+                // pixels / second
+                var linearSpeed = 10;
+                var linearDistEachFrame = (linearSpeed * 200 / 1000);
+                var currentX = charEndAnim[4];
+
+                var newX = currentX + linearDistEachFrame;
+                charEndAnim[4] = newX;
+
+                context.drawImage(img, newX, charEndAnim[5]);
+            }
+            if (charEndAnim[6] == "left") {
+                if (Math.floor(charEndAnim[4]) % 100 == 0) {
+                    img.src = charEndAnim[3];
+                }
+                else {
+                    img.src = charEndAnim[2];
+                }
+
+                // pixels / second
+                var linearSpeed = 100;
+                var linearDistEachFrame = linearSpeed * 200 / 1000;
+                var currentX = charEndAnim[4];
+
+                var newX = currentX - linearDistEachFrame;
+                charEndAnim[4] = newX;
+
+                context.drawImage(img, newX, charEndAnim[5]);
+            }
+
+            requestAnimFrame(function () {
+                clrImage.x = newX;
+                drawClrImg(clrImage, context);
+                animateCharEnd(charEndAnim, runCharAnimationEnd, canvas, context);
+            });
+        }
+    }
+
+    var char = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 448, 'right'];
+    var charSpk = ['../img/charSpk1.png', '../img/charSpk2.png', '../img/charSpk3.png', '../img/charSpk4.png', 0, 448, 0];
+    var charEndAnim = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 448, 'right'];
 
     var myRectangle = {
         x: 0,
@@ -387,6 +458,12 @@
         x: -(canvas.width),
         y: 585
     };
+    var clickTxt = {
+        x: 50,
+        y: 50,
+        font: '20pt Helvetica',
+        text: 'Click: 1'
+    }
 
     var canvasBackground = {
         x: 0,
@@ -402,16 +479,17 @@
         height: 100,
     };
     var msg = {
-        x: (canvas.width / 2),
-        y: (canvas.height / 2),
+        x: 450,
+        y: 100,
         font: '20pt Helvetica',
-        text: 'Click to begin.'
+        text: 'Network Addressing in Just 5 Clicks! : Click to begin.'
+        
     };
     var octetRect = {
         x: 0 + 10,
         y: 549,        
         height: 50,
-        width: (canvas.width / 4),
+        width: (canvas.width / 4) - 10,
         borderWidth: 3,
     };
     var octetTxt = {
@@ -440,7 +518,9 @@
     var runCharSpkAnimation = {
         value: false
     };
-
+    var runCharAnimationEnd = {
+        value: false
+    }
     // add click listener to canvas
     document.getElementById('myCanvas').addEventListener('click', function () {
         
@@ -457,19 +537,28 @@
                 animate2(time, myRectangle2, runBinaryAnimation, canvas, context);
                 txtAnimate(time, myText, runBinaryAnimation, canvas, context);
                 txtAnimate2(time, myText2, runBinaryAnimation, canvas, context);
-                animateChar(time, char, runCharAnimation, canvas, context);
-                context.save();
-
+                animateChar(time, char, runCharAnimation, canvas, context);             
                 break;
             case 1:               
                 runBinaryAnimation.value = true;
                 runCharAnimation.value = false;
                 runCharSpkAnimation.value = true;
+                clrMsgText();
+                msg.x = 100;
+                msg.y = 400;
+                msg.text = 'Oh! Hello there. Did you know that your IP address is actually just 1s and 0s?';
+                drawMsg(msg, context);
+                drawClickTxt(clickTxt, context);
                 animateCharSpk(charSpk, runCharSpkAnimation, canvas, context);
                 break;
             case 2:
                 runCharSpkAnimation.value = true;
                 runBinaryAnimation.value = false;
+                clrMsgText();
+                msg.text = 'It is True. See each group of 8 bits is called an Octet; the first 8 make the first number.';
+                drawMsg(msg, context);
+                clickTxt.text = 'Click: 2';
+                drawClickTxt(clickTxt, context);
                 clrText();
                 myRectangle.x = 0;
                 myRectangle.y = 549;
@@ -483,11 +572,21 @@
                 drawText2(myText2, context);
                 break;
             case 3:
+                clrMsgText();
+                msg.text = 'Each bit has a "bit weight" which, when added up for each 1, will give you that octet for your IP.';
+                drawMsg(msg, context);
+                clickTxt.text = 'Click: 3';
+                drawClickTxt(clickTxt, context);
                 drawOctetRect(octetRect, context);
                 drawOctTxt(octetTxt, context);
                 drawBitWeights(bitWeights, context);
                 break;
             case 4:
+                clrMsgText();
+                msg.text = 'Here the IP for my server. Just add periods between each number and your good to go!';
+                drawMsg(msg, context);
+                clickTxt.text = 'Click: 4';
+                drawClickTxt(clickTxt, context);
                 octetRect.x += (octetRect.width + 5)
                 drawOctetRect(octetRect, context);
                 octetRect.x += (octetRect.width + 5)
@@ -505,9 +604,15 @@
                 drawOctTxt(octetTxt, context);
                 break;
             case 5:
-                canvas.width = canvas.width;
+                clrMsgText();
+                clickTxt.text = 'Click: 5';
+                drawClickTxt(clickTxt, context);                
+                msg.text = 'The End.          Thanks for the visit.  :)  I will be here on the server if you need me.';
+                drawMsg(msg, context);
+                runCharSpkAnimation.value = false;
+                runCharAnimationEnd.value = true;
+                animateCharEnd(charEndAnim, runCharAnimationEnd, canvas, context);
                 break;
-
         }
         
     });
