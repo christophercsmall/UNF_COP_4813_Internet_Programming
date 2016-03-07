@@ -1,5 +1,7 @@
 ﻿window.onload = function () {
-
+	var today = new Date();
+    document.getElementById("today").innerHTML = today.toDateString();
+	
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
 
@@ -425,9 +427,9 @@
         }
     }
 
-    var char = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 448, 'right'];
-    var charSpk = ['../img/charSpk1.png', '../img/charSpk2.png', '../img/charSpk3.png', '../img/charSpk4.png', 0, 448, 0];
-    var charEndAnim = ['../img/charR1.png', '../img/charR2.png', '../img/charL1.png', '../img/charL2.png', 0, 448, 'right'];
+    var char = ['charR1.png', 'charR2.png', 'charL1.png', 'charL2.png', 0, 448, 'right'];
+    var charSpk = ['charSpk1.png', 'charSpk2.png', 'charSpk3.png', 'charSpk4.png', 0, 448, 0];
+    var charEndAnim = ['charR1.png', 'charR2.png', 'charL1.png', 'charL2.png', 0, 448, 'right'];
 
     var myRectangle = {
         x: 0,
@@ -583,7 +585,7 @@
                 break;
             case 4:
                 clrMsgText();
-                msg.text = 'Here the IP for my server. Just add periods between each number and your good to go!';
+                msg.text = 'Here is the IP for my server. Just add periods between each number and your good to go!';
                 drawMsg(msg, context);
                 clickTxt.text = 'Click: 4';
                 drawClickTxt(clickTxt, context);
