@@ -1,0 +1,47 @@
+#loginButton{
+	position:absolute;
+	right: 150px;
+	top: -30px;
+}
+#regisButton{
+	position:absolute;
+	right: 70px;
+	top: -30px;
+	
+}
+.form_login_input{
+	text-align: center;
+	
+}
+p.motto {
+	background-color: yellow;
+	
+}
+
+	
+
+#user-info{
+	background-color: cyan;
+	position: fixed;
+	right: 0;
+	bottom: 300;
+	padding-top: 116px;
+    padding-right: 720px;
+    padding-bottom: 140px;
+    padding-left: 780px;
+	
+}
+.form_login_password
+{
+	text-align: center;
+	
+	
+
+}
+
+#user_submit{
+	position: absolute;
+	border-color: red;
+	right:774px;
+	bottom: 60px;
+}

@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learning Management System</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="Styles/Style.css">
+    <link rel="stylesheet" type="text/css" href="Styles/bootstrap.css">
+    <script src="Scripts/bootstrap.js"></script>
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+
+    <script>
+        var questions = [];
+        var userAnswers = [];
+        var key = [];
+        var temp = "";
+        var q1Answers, q2Answers, q3Answers, q4Answers = [];
+        var counter = 0;
+        var points = 0;
+
+        window.onload = function () {
+            questions = ["Q1", "Q2", "Q3", "Q4"];
+            key = ["A", "B", "C", "D"];
+            q1Answers = ["This answer is True", "This is False", "This is False", "This is False"];
+            q2Answers = ["This is False", "This answer is True", "This is False", "This is False"];
+            q3Answers = ["This is False", "This is False", "This answer is True", "This is False"];
+            q4Answers = ["This is False", "This is False", "This is False", "This answer is True"];
+            questionAnswers = [q1Answers, q2Answers, q3Answers, q4Answers]
+
+            loadNextQuestion();
+        }
+
+        function enableSubmitBtn(val) {
+            document.getElementById("submit").style.display = "";
+            temp = val;
+        }
+
+        function submitAnswer() {
+            userAnswers.push(temp);
+            document.getElementById("submit").style.display = "none";
+            counter++;
+            if (counter == questions.length) {
+                gradeTest();
+                alert("test over");
+            }
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+
+            document.getElementById("question").innerHTML = questions[counter];
+            document.getElementById("ansA").innerHTML = questionAnswers[counter][0];
+            document.getElementById("ansB").innerHTML = questionAnswers[counter][1];
+            document.getElementById("ansC").innerHTML = questionAnswers[counter][2];
+            document.getElementById("ansD").innerHTML = questionAnswers[counter][3];
+        }
+
+        function gradeTest() {
+            for (var x = 0; x < questions.length; x++) {
+                if (userAnswers[x] == key[x]) {
+                    points++;
+                }
+            }
+            alert("you got " + points + " points.");
+        }
+
+    </script>
+
+</head>
+
+<body style="overflow-x:hidden">
+
+    <!--header starts here-->
+    <div class="navbar navbar-fixed-top navbar-default"
+         style="background-color:#EDEDED">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav navbar-left navbar-brand">
+                    <li>
+                        <img src="Images/Ims_logo.png" alt="Image Lost"
+                             height=" 70" width="100">
+                    </li>
+                    <li><h2>Learning Management System</h2></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-brand navbar-right">
+                    <li>
+                        <a class="" title="Home" href="Home.html">
+                            <span class="glyphicon glyphicon-home">
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="glyphicon glyphicon-book"></span> About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">
+                            <span class="glyphicon glyphicon-phone"></span> Contact
+                        </a>
+                    </li>
+
+                    <li>
+
+                        <a href="">
+                            <span class="glyphicon glyphicon-list"></span> Course List
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="Registration.html">
+                            <span class="glyphicon glyphicon-pencil"></span> Register
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Login.html">
+                            <span class="glyphicon glyphicon-user"></span> Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <input type="text" class="navbar-text img-rounded" id="txtSearch"
+                               placeholder="Search" />
+                    </li>
+
+                    <li>
+                        <a class="" title="Home" href="">
+                            <span class="glyphicon glyphicon-search">
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <!--header end here-->
+    <!-- Page Content starts here-->
+
+    <div class="body-content" style="background-image:url('Images/BGImage1.jpg');
+        background-size: 2000px 2000px">
+
+        <div style="height:100px"></div>
+        <div style="min-height:800px;">
+
+            <div class="container-fluid">
+                <center><h2>Assessment</h2></center>
+                <br />
+
+                <div class=" col-md-2"></div>
+                <div class="col-md-10">
+
+                    <div class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <p class="lead">
+                                <a href="#">Test # </a>
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <p><span class="glyphicon glyphicon-time"></span> Test Timer</p>
+                        </div>
+
+                        <div class="form-group">
+                            <p id="question" class="lead">The Question goes here.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="btn-group btn-group-vertical btn-group-lg col-md-4">
+                                <button name="radio" type="button" onclick="enableSubmitBtn(this.value)"
+                                        value="A" class="btn btn-default" style="text-align:left;">
+                                    A:<span id="ansA">
+                                    </span>
+                                </button>
+                                <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="B"
+                                        class="btn btn-default" style="text-align:left;">
+                                    B:<span id="ansB">
+                                    </span>
+                                </button>
+                                <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="C"
+                                        class="btn btn-default" style="text-align:left;">
+                                    C:<span id="ansC">
+                                    </span>
+                                </button>
+                                <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="D"
+                                        class="btn btn-default" style="text-align:left;">
+                                    D:<span id="ansD">
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button id="submit" type="button" onclick="submitAnswer()"
+                                    class="btn-success btn-lg" value="Submit" style="display:none">
+                                Submit
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content ends here-->
+    <!--footer starts here-->
+    <div class="footer navbar-fixed-bottom">
+        <div class="container">
+            <div class="col-md-4 ftr-grid">
+                <div class="ftr-grid-left">
+                    <img src="Images/location.png" alt="">
+                </div>
+                <div class="ftr-grid-right">
+                    <p>1 University of North Fl Dr<span class="local">Jackosnville, FL- 32224</span></p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="col-md-4 ftr-grid">
+                <div class="ftr-grid-left">
+                    <img src="Images/email.png" alt="">
+                </div>
+                <div class="ftr-grid-right">
+                    <p><a href="#">helpdesk@unf.edu </a><span class="local">Help desk Email</span></p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="col-md-4 ftr-grid">
+                <div class="ftr-grid-left">
+                    <img src="Images/phone.png" alt="">
+                </div>
+                <div class="ftr-grid-right">
+                    <p>(904) 620-1000<span class="local">(904) 620-HELP (4357)</span></p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--footer end here-->
+
+</body>
+
+</html>
