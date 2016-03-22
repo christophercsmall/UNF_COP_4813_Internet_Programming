@@ -17,19 +17,31 @@
         var userAnswers = [];
         var key = [];
         var temp = "";
-        var q1Answers, q2Answers, q3Answers, q4Answers = [];
+        var answerA, answerB, answerC, answerD = [];
         var counter = 0;
         var points = 0;
 
         window.onload = function () {
-            questions = ["Q1", "Q2", "Q3", "Q4"];
-            key = ["A", "B", "C", "D"];
-            q1Answers = ["This answer is True", "This is False", "This is False", "This is False"];
-            q2Answers = ["This is False", "This answer is True", "This is False", "This is False"];
-            q3Answers = ["This is False", "This is False", "This answer is True", "This is False"];
-            q4Answers = ["This is False", "This is False", "This is False", "This answer is True"];
-            questionAnswers = [q1Answers, q2Answers, q3Answers, q4Answers]
+            var q1 = 'Which will select all paragraph elements?';
+            var q2 = 'Which of the following is correct?';
+            var q3 = 'jQuery uses ___ selectors to select elements?';
+            var q4 = 'Which sign does jQuery use as a shortcut for jQuery?';
+            var q5 = 'Is jQuery a library for client scripting or server scripting?';
+            var q6 = 'What is the correct jQuery code to set the background color of all p elements to red?';
+            var q7 = 'Which jQuery method is used to hide selected elements?';
+            var q8 = 'What is the correct jQuery code for making all div elements 100 pixels high?';
+            var q9 = 'Which statement is true?';
+            var q10 = 'What scripting language is jQuery written in?';
+            questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
+            key = ['A', 'B', 'C', 'D', 'B', 'A', 'D', 'B', 'C', 'C'];
 
+            answerA = ['$("p")', 'jQuery is a JSON Library', 'JavaScript', 'The & sign', 'Server Scripting', '$("p").css("background-color","red");', 'visible(false)', '$("div").yPos(100)', 'To use jQuery, you do not have to do anything. <br />Most browsers (Internet Explorer, Chrome, Firefox and Opera) have the jQuery library built in the browser', 'VBScript'];
+            answerB = ['$["p"]', 'jQuery is a JavaScript Library', 'SQL', 'The % sign', 'Client Scripting', '$("p").layout("background-color","red");', 'hidden()', '$("div").height(100)', 'To use jQuery, you do not have to do anything. <br />jQuery is loaded into the browser every time a web site is visited', 'C#'];
+            answerC = ['$(p)', 'jQuery is an HTML5 Library', 'CSS', 'The ? sign', 'Both', '$("p").manipulate("background-color","red");', 'display(none)', '$("div").height="100"', 'To use jQuery, you can refer to a hosted jQuery library at Google', 'JavaScript'];
+            answerD = ['($"p")', 'jQuery is an SQL Library', 'XML', 'The $ sign', 'Neither', '$("p").style("background-color","red");', 'hide()', '$(“div”).style(“height=100”)', 'To use jQuery, you must buy the jQuery library at www.jquery.com', 'C++'];
+
+            questionAnswers = [answerA, answerB, answerC, answerD]
+            
             loadNextQuestion();
         }
 
@@ -52,10 +64,10 @@
         function loadNextQuestion() {
 
             document.getElementById("question").innerHTML = questions[counter];
-            document.getElementById("ansA").innerHTML = questionAnswers[counter][0];
-            document.getElementById("ansB").innerHTML = questionAnswers[counter][1];
-            document.getElementById("ansC").innerHTML = questionAnswers[counter][2];
-            document.getElementById("ansD").innerHTML = questionAnswers[counter][3];
+            document.getElementById("ansA").innerHTML = questionAnswers[0][counter];
+            document.getElementById("ansB").innerHTML = questionAnswers[1][counter];
+            document.getElementById("ansC").innerHTML = questionAnswers[2][counter];
+            document.getElementById("ansD").innerHTML = questionAnswers[3][counter];
         }
 
         function gradeTest() {
@@ -65,6 +77,7 @@
                 }
             }
             alert("you got " + points + " points.");
+            window.location.href = 'Home.html';
         }
 
     </script>
@@ -157,13 +170,14 @@
 
         <div style="height:100px"></div>
         <div style="min-height:800px;">
-
             <div class="container-fluid">
                 <center><h2>Assessment</h2></center>
                 <br />
 
-                <div class=" col-md-2"></div>
+                <div class="col-md-2"></div>
                 <div class="col-md-10">
+
+<!--========================================================Test Questions=====================================================================-->
 
                     <div class="form-horizontal" role="form">
 
@@ -182,25 +196,25 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="btn-group btn-group-vertical btn-group-lg col-md-4">
+                            <div class="btn-group btn-group-vertical btn-group-lg" style="width:inherit;">
                                 <button name="radio" type="button" onclick="enableSubmitBtn(this.value)"
                                         value="A" class="btn btn-default" style="text-align:left;">
-                                    A:<span id="ansA">
+                                    A: <span id="ansA">
                                     </span>
                                 </button>
                                 <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="B"
                                         class="btn btn-default" style="text-align:left;">
-                                    B:<span id="ansB">
+                                    B: <span id="ansB">
                                     </span>
                                 </button>
                                 <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="C"
                                         class="btn btn-default" style="text-align:left;">
-                                    C:<span id="ansC">
+                                    C: <span id="ansC">
                                     </span>
                                 </button>
                                 <button name="radio" type="button" onclick="enableSubmitBtn(this.value)" value="D"
                                         class="btn btn-default" style="text-align:left;">
-                                    D:<span id="ansD">
+                                    D: <span id="ansD">
                                     </span>
                                 </button>
                             </div>
@@ -212,11 +226,12 @@
                                 Submit
                             </button>
                         </div>
-
                     </div>
-                </div>
+<!--========================================================/Test Questions=====================================================================-->
 
+                </div>
             </div>
+
         </div>
     </div>
 
