@@ -1,9 +1,13 @@
 <?php 
-	session_start();
+	session_start();	
 	
-	if ($_SESSION['error'] == "error_login")
+	if ($_SESSION['error'] == "")
 	{
-		$error = "Invalid login attempt. Try again.";
+		$error = "";
+	}
+	else if ($_SESSION['error'] == "error_login")
+	{
+		$error = "|Error: Invalid login attempt. Try again.|";
 	}
 ?>
 

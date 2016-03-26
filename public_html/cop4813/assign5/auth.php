@@ -1,6 +1,6 @@
 <?php
 
-	session_start();
+session_start();
 
 	$userName = filter_var($_POST['username'], FILTER_SANITIZE_STRING); //must be same as name attr in post
 	$passWord = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
