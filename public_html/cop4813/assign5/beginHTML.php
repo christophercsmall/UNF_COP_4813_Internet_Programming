@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Assignment 5: Login and Stock Portfolio Manager Using PHP</title>
-    <link rel="stylesheet" type="text/css" href="../style.css" />
-
+    <link rel="stylesheet" type="text/css" href="../style.css" />	
+	
     <script>          
 
         window.onload = function () {

@@ -28,7 +28,7 @@ session_start();
 		$_SESSION['userName'] = $userName;
 		$_SESSION['passWord'] = $passWord;
 		$_SESSION['error'] = '';
-		header('Location: main.php');		
+		header('Location: dashboard.php');		
 	}
 	else
 	{		

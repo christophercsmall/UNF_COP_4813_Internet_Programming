@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$stock = $_POST['tick'];
+$stock = strtoupper($_POST['tick']);
 $tick_exists = false;
 $file_name = "stocks.txt";
 
@@ -24,9 +24,8 @@ if($stock != '')
 	else
 	{
 		while($portf_line = fgets($portf_fp))
-		{
-			$string = $portf_line;
-			$tok_tick = str_replace('"', '', strtok($string, ","));
+		{			
+			$tok_tick = str_replace('"', '', strtok($portf_line, ","));
 
 			if ($tok_tick == $stock)
 			{
@@ -40,7 +39,7 @@ if($stock != '')
 			fclose($portf_fp);
 			fclose($yahoo_fp);
 			$_SESSION['error'] = "";
-			$_SESSION['success'] = "stock_added";
+			$_SESSION['success'] = "stock_added";			
 			header('Location: manager.php');
 		}
 		else
