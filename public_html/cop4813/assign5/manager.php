@@ -1,9 +1,18 @@
 <?php
 session_start();
 
+	if($_SESSION['userName'] == "")
+	{
+		header('Location: index.php');
+	}
+
 	if ($_SESSION['success'] == "stock_added")
 	{
 		$success = "Stock successfully added to your porfolio.";
+	}
+	else if ($_SESSION['success'] == "stock_deleted")
+	{
+		$success = "Stock successfully deleted from your porfolio.";
 	}
 
 	if ($_SESSION['error'] == "error_tick_duplicate")
@@ -32,16 +41,19 @@ session_start();
 		document.getElementById('addStock').style.display = "";
 		document.getElementById('modifyStock').style.display = "none";
 		document.getElementById('deleteStock').style.display = "none";
+		document.getElementById('alert').style.display = "none";
 	}
 	function modifyStock(){
 		document.getElementById('addStock').style.display = "none";
 		document.getElementById('modifyStock').style.display = "";
 		document.getElementById('deleteStock').style.display = "none";
+		document.getElementById('alert').style.display = "none";
 	}
 	function deleteStock(){
 		document.getElementById('addStock').style.display = "none";
 		document.getElementById('modifyStock').style.display = "none";
 		document.getElementById('deleteStock').style.display = "";
+		document.getElementById('alert').style.display = "none";
 	}
 </script>
 
@@ -72,7 +84,7 @@ session_start();
 		<form action='deleteStock.php' method='post' id='form'>		
 			<table style='text-align:center;'>
 				<tr style='text-decoration: underline; font-family: sans-serif;'>
-					<th></th>
+					<th>DELETE</th>
 					<th>Ticker</th>
 					<th>Value</th>
 					<th>Trade Date</th>
@@ -83,10 +95,10 @@ session_start();
 					<th>Days's Low</th>
 					<th>Volume</th>
 				</tr>
+				
 				<?php			
 				$portf_fp = fopen("stocks.txt", 'r');
-				$portf = array();
-				
+				$portf = array();				
 				
 				while($portf_line = fgets($portf_fp))
 				{
@@ -121,7 +133,7 @@ session_start();
 				{
 					echo "<tr>
 							<td>
-								<input type='submit' class='textContent textInput' style='margin:0; font-weight:bolder; font-size:large; width:200px;' name='tick_delete' value='DELETE | $item[0]' />	
+								<input type='submit' class='textContent textInput' style='margin:0; font-weight:bolder; font-size:large; width:200px;' name='tick_delete' value='$item[0]' />	
 							</td>";
 						
 						foreach($item as $key => $value)
@@ -140,9 +152,8 @@ session_start();
 </div>
 
 <?php 
-	echo "<hr/>";
-	echo $success;
-	echo $error;
+	echo "<hr/>";	
+	echo "<div id='alert'>$success $error</div>";
 ?>
 
 <?php include 'endHTML.php';?>
