@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$dateTime = date('Y/m/d H:i:s a', time());
 $stock = strtoupper($_POST['tick']);
 $tick_exists = false;
 $stocks_file = "stocks.txt";
@@ -19,6 +20,7 @@ if($stock != '')
 		fclose($portf_fp);
 		fclose($acct_fp);
 		fclose($yahoo_fp);
+		$_SESSION['success'] = "";
 		$_SESSION['error'] = "error_tick_none";
 		header('Location: manager.php');
 	}
@@ -26,7 +28,7 @@ if($stock != '')
 	{
 		while($portf_line = fgets($portf_fp)) 
 		{			
-			$tok_tick = str_replace('"', '', strtok($portf_line, ","));
+			$tok_tick = str_replace('"', '', strtok($portf_line, ","));				
 			
 			//check if already in portf
 			if ($tok_tick == $stock)
@@ -38,8 +40,11 @@ if($stock != '')
 		//append to portf and account if new
 		if($tick_exists == false)
 		{
+			$tok_tick = strtok($line, ",");	
+			$tok_value = strtok(",");
+			
 			fwrite($portf_fp, $line);			
-			fwrite($acct_fp, strtok($line, ",").',0'."\n");
+			fwrite($acct_fp, $tok_tick.",0,".$tok_value.",".$dateTime."\n");
 			fclose($portf_fp);
 			fclose($acct_fp);
 			fclose($yahoo_fp);
@@ -48,7 +53,8 @@ if($stock != '')
 			header('Location: manager.php');
 		}
 		else
-		{		
+		{	
+			$_SESSION['success'] = "";
 			$_SESSION['error'] = "error_tick_duplicate";	
 			header('Location: manager.php');		
 		}	
@@ -56,6 +62,7 @@ if($stock != '')
 }
 else
 {
+	$_SESSION['success'] = "";
 	$_SESSION['error'] = "error_tick_empty";
 	header('Location: manager.php');
 }
