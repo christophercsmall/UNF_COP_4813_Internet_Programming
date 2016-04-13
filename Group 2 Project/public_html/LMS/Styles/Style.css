@@ -1,0 +1,49 @@
+﻿
+.fontStyle
+{
+font-family:Calibri,Verdana,Geneva,Tahoma,sans-serif;
+font-size:large;
+font-weight: 600;
+}
+
+.footer {
+    background: #EDEDED;
+    padding: 1em 1em;
+}
+
+.ftr-grid-left {
+    float: left;
+    width: 25%;
+    padding: 1em 1em;
+    border: 3px solid #909090;
+    border-radius: 50px;
+}
+
+.ftr-grid-right {
+    float: right;
+    width: 70%;
+}
+
+span.local {
+    display: block;
+}
+
+.ftr-grid-right p {
+    margin: 1em 0em 0em 0em;
+    font-size: 1em;
+    color: #2d598a;
+    font-weight:600;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+    .ftr-grid-right p a {
+        color: #000;
+    }
+
+        .ftr-grid-right p a:hover {
+            color: #2d598a;
+            text-decoration: none;
+        }
+/*--footer end here--*/
+
+
