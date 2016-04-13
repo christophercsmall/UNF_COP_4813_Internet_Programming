@@ -1,5 +1,18 @@
 <?php
-
+session_start();
+	$email = $_SESSION['Email'];
+	$userName  = $_SESSION['UserName'];
+	
+	if ($email)
+	{
+		$loginLinkText = $userName .  " | Logout";
+		$loginLinkHref = "Logout.php";
+	}
+	else
+	{
+		$loginLinkText = "Login";
+		$loginLinkHref = "Login.php";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -48,3 +61,5 @@
 
 </body>
 </html>
+
+

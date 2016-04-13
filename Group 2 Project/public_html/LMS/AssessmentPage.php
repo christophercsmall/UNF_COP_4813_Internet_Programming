@@ -1,13 +1,19 @@
-Ôªø<?php
+<?php
 session_start();
-
-//Redirect if logged in
-if($_SESSION['Email'] != null)
-{
-	header('Location: UserAccount.php');
-	exit;  
-}
-
+	$email = $_SESSION['Email'];
+	$userName  = $_SESSION['UserName'];
+	
+	if ($email)
+	{
+		$loginLinkText = $userName .  " | Logout";
+		$loginLinkHref = "Logout.php";
+	}
+	else
+	{
+		$loginLinkText = "Login";
+		$loginLinkHref = "Login.php";	
+		header('Location: Login.php');
+	}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +56,7 @@ if($_SESSION['Email'] != null)
             answerA = ['$("p")', 'jQuery is a JSON Library', 'JavaScript', 'The & sign', 'Server Scripting', '$("p").css("background-color","red");', 'visible(false)', '$("div").yPos(100)', 'To use jQuery, you do not have to do anything. <br />Most browsers (Internet Explorer, Chrome, Firefox and Opera) have the jQuery library built in the browser', 'VBScript'];
             answerB = ['$["p"]', 'jQuery is a JavaScript Library', 'SQL', 'The % sign', 'Client Scripting', '$("p").layout("background-color","red");', 'hidden()', '$("div").height(100)', 'To use jQuery, you do not have to do anything. <br />jQuery is loaded into the browser every time a web site is visited', 'C#'];
             answerC = ['$(p)', 'jQuery is an HTML5 Library', 'CSS', 'The ? sign', 'Both', '$("p").manipulate("background-color","red");', 'display(none)', '$("div").height="100"', 'To use jQuery, you can refer to a hosted jQuery library at Google', 'JavaScript'];
-            answerD = ['($"p")', 'jQuery is an SQL Library', 'XML', 'The $ sign', 'Neither', '$("p").style("background-color","red");', 'hide()', '$(‚Äúdiv‚Äù).style(‚Äúheight=100‚Äù)', 'To use jQuery, you must buy the jQuery library at www.jquery.com', 'C++'];
+            answerD = ['($"p")', 'jQuery is an SQL Library', 'XML', 'The $ sign', 'Neither', '$("p").style("background-color","red");', 'hide()', '$(ìdivî).style(ìheight=100î)', 'To use jQuery, you must buy the jQuery library at www.jquery.com', 'C++'];
 
             questionAnswers = [answerA, answerB, answerC, answerD]
             

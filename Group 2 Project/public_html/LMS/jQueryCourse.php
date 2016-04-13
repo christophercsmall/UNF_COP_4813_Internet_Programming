@@ -1,20 +1,24 @@
-﻿<?php
+<?php
 session_start();
-
-//Redirect if NOT logged in
-if($_SESSION['Email'] == null)
-{
-	header('Location: UserAccount.php');
-	exit;  
-}
-
+	$email = $_SESSION['Email'];
+	$userName  = $_SESSION['UserName'];
+	
+	if ($email)
+	{
+		$loginLinkText = $userName .  " | Logout";
+		$loginLinkHref = "Logout.php";
+	}
+	else
+	{
+		$loginLinkText = "Login";
+		$loginLinkHref = "Login.php";	
+		header('Location: Login.php');
+	}
 ?>
 
 <!DOCTYPE html>
 <html>
-
-<head>
-    
+<head>    
     <title>jQuery Course</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,9 +50,9 @@ if($_SESSION['Email'] == null)
     <div class="body-content" style="background-image:url('Images/BGImage1.jpg');
         background-size: 2000px 2000px">
 
-        <div style="min-height:800px;">
+        <div style="min-height:800px; margin-top:100px;">
             <div class="container-fluid">
-                <center><h2 style="">Course Title</h2></center>
+                <center><h2 style="">jQuery Course</h2></center>
                 <br />
                 <!--====================================[Course Content]=====================================================================-->
                 <div class="row" style="margin-bottom:100px;">
@@ -83,7 +87,7 @@ if($_SESSION['Email'] == null)
     </div>
     <!--Content end here-->
 	
-    <?php include 'Layout/Footer.php'; ?>
+<?php include 'Layout/Footer.php'; ?>
 
 </body>
 </html>

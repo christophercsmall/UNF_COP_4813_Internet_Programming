@@ -1,13 +1,20 @@
 <?php
 session_start();
-
-//Redirect if logged in
-if($_SESSION['Email'] != null)
-{
-	header('Location: UserAccount.php');
-	exit;  
-}
-
+	$email = $_SESSION['Email'];
+	$userName  = $_SESSION['UserName'];
+	
+	if ($email)
+	{
+		$loginLinkText = $userName .  " | Logout";
+		$loginLinkHref = "Logout.php";
+		header('Location: UserAccount.php');
+		exit;
+	}
+	else
+	{
+		$loginLinkText = "Login";
+		$loginLinkHref = "Login.php";			
+	}	
 ?>
 
 <!DOCTYPE html>

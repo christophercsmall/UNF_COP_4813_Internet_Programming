@@ -1,6 +1,3 @@
-<?php
-
-?>
 
  <style>
         .navbar .nav > li > a {
@@ -69,8 +66,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Login.php">
-                            <span class="glyphicon glyphicon-user"></span> Login
+                        <a href="<?php echo $loginLinkHref; ?>">
+                            <span class="glyphicon glyphicon-user"></span> <?php echo $loginLinkText; ?>
                         </a>
                     </li>
 

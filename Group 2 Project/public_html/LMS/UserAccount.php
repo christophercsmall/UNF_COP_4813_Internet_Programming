@@ -7,6 +7,17 @@ $mysqlConn = GetMySQLDatabaseCon();
 $username = $_SESSION['UserName'];
 $email = $_SESSION['Email'];
 
+if ($email)
+{
+	$loginLinkText = $username .  " | Logout";
+	$loginLinkHref = "Logout.php";
+}
+else
+{
+	$loginLinkText = "Login";
+	$loginLinkHref = "Login.php";	
+}
+
 //Redirect if not logged in
 if($email == null)
 {
