@@ -63,6 +63,7 @@ a:visited {
 .tableStyle {
     text-align: center;
     width: 100%;
+	border-collapse:collapse;
 }
 
 .textInput {
@@ -90,4 +91,27 @@ a:visited {
 .creatorHeader{
     font-family: 'Copperplate Gothic';
     text-align:center;
+}
+
+.rowStyle:hover > td{
+	background-color: gray;
+	cursor:pointer;
+	color:greenyellow;
+}
+
+.rowStyle:hover{
+	background-color: gray;
+	cursor:pointer;
+	color:greenyellow;
+}
+
+.checkBoxStyle:hover{
+	background-color: gray;
+	cursor:pointer;
+	color:greenyellow;
+	font-decoration:underline;
+}
+
+input[type='button']:disabled{
+	background-color: gray;
 }

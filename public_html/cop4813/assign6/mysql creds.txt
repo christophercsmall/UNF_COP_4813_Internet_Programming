@@ -1,0 +1,18 @@
+-u n#
+-p spring2016931863
+
+use n00931863;
+
+show tables;
+
+CREATE TABLE Books
+(
+	ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	title varchar(255) NOT NULL,
+	author varchar(255) NOT NULL,
+	genre varchar(255),
+	readStart varchar(255) NOT NULL,
+	readFinish varchar(255),
+	stars varchar(255) NOT NULL
+);
+
