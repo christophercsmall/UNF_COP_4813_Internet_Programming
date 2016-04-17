@@ -9,7 +9,7 @@ $email = $_SESSION['Email'];
 
 if ($email)
 {
-	$loginLinkText = $username .  " | Logout";
+	$loginLinkText = " | Logout";
 	$loginLinkHref = "Logout.php";
 }
 else
@@ -46,7 +46,7 @@ else
 <html>
 
 <head>
-<<title>Student Account</title>
+<title>Student Account</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -91,8 +91,10 @@ else
 					</form>
 				</div>
 				
-				<div id="completedCourses">
-				Put list of completed courses and scores and list here.
+				<div id="completedCourses" class="container">
+					<div class="jumbotron">
+						<?php include 'ScoresTable.php'; ?>
+					</div>
 				</div>
 
 				
