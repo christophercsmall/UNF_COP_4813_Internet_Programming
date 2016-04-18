@@ -1,6 +1,6 @@
 <?php
 
-$mysqlConn = new mysqli('localhost', 'group2', 'lmsgroup2', 'group2'); 
+	$mysqlConn = new mysqli('localhost', 'group2', 'lmsgroup2', 'group2'); 
     // Check connection
     if ($mysqlConn->connect_error) {
         //header('Location: Login.php?error=4');

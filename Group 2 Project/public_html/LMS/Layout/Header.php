@@ -55,8 +55,8 @@
 
                     <li>
 
-                        <a href="">
-                            <span class="glyphicon glyphicon-list"></span> Course List
+                        <a href="CourseCreation.php">
+                            <span class="glyphicon glyphicon-list"></span> Create Course
                         </a>
                     </li>
 
